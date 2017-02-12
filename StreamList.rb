@@ -1,20 +1,18 @@
-require "yaml/store"
-
 class StreamList
-
-   attr_reader :list_streams
 
    def initialize
       @list_streams = []
    end
 
-   # add in an ordered way a stream to the list unless the stream is already included
+   # construct and add in an ordered way a stream to the list
+   # unless the stream (based on his name attribute) is already included
    # or raise an exception
-   # (based on his name attribute)
-   def add(stream)
-      index = find(stream.name)
+   # NOTE: Parameter checking will have to be done in the classes using this one
+   def add(name, url_stream, url_chat)
+      index = find(name)
       raise StreamListException if index != nil
 
+      stream = Stream.new(name, url_stream, url_chat)
       @list_streams << stream
       @list_streams.sort! do |a,b|
          a.casecmp(b)
@@ -23,13 +21,22 @@ class StreamList
 
    alias << add
 
-   def remove(stream)
-      @list_streams.delete(stream)
+   def change(old_name, new_name, url_stream, url_chat)
+      index = find(old_name)
+      raise StreamListException if index != nil
+
+      stream = @list_streams[index]
+      stream.name = new_name
+      stream.url_name = url_stream
+      stream.url_chat = url_chat
+      if old_name.casecmp?(new_name)
+         @list_streams.sort! do |a,b|
+            a.casecmp(b)
+         end
+      end
    end
 
-   alias delete remove
-
-   def remove_by_name(name)
+   def remove(name)
       index = self.find(stream.name)
       raise StreamListException if index != nil
 
@@ -58,7 +65,7 @@ class StreamList
 
    def find(name)
       @list_streams.find_index do |item|
-         item.name == name
+         item.name.casecmp?(name)
       end
    end
 end

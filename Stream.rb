@@ -1,9 +1,9 @@
 class Stream
 
-   attr_accessor :nom, :url_stream, :url_chat
+   attr_accessor :name, :url_stream, :url_chat
 
-   def initialize(nom, url_stream, url_chat)
-      @nom = nom
+   def initialize(name, url_stream, url_chat = nil)
+      @name = name
       @url_stream = url_stream
       @url_chat = url_chat
    end
