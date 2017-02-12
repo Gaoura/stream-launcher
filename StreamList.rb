@@ -14,7 +14,7 @@ class StreamList
    # or raise an exception
    def add(name, url_stream, url_chat)
       index = find(name)
-      raise StreamListException if index != nil
+      raise StreamListException if index.nil?
 
       stream = Stream.new(name, url_stream, url_chat)
       @list_streams << stream
@@ -27,7 +27,7 @@ class StreamList
 
    def update(old_name, new_name, url_stream, url_chat)
       index = find(old_name)
-      raise StreamListException if index != nil
+      raise StreamListException if index.nil?
 
       stream = @list_streams[index]
       stream.name = new_name
@@ -42,7 +42,7 @@ class StreamList
 
    def remove(name)
       index = find(stream.name)
-      raise StreamListException if index != nil
+      raise StreamListException if index.nil?
 
       @list_streams.delete_at(index)
    end
@@ -51,7 +51,7 @@ class StreamList
 
    def get(name)
       index = find(stream.name)
-      raise StreamListException if index != nil
+      raise StreamListException if index.nil?
 
       @list_streams[index]
    end
