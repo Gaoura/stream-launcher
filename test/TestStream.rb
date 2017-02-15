@@ -1,6 +1,6 @@
 require "minitest/autorun"
 
-require_relative "Stream"
+require_relative "../src/Stream"
 
 describe Stream do
    let(:stream) { Stream.new("Zerator", "twitch.tv/zerator") }
