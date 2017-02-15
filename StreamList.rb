@@ -13,8 +13,7 @@ class StreamList
    # unless the stream (based on his name attribute) is already included
    # or raise an exception
    def add(name, url_stream, url_chat)
-      index = find(name)
-      raise StreamListException if index.nil?
+      find(name)
 
       stream = Stream.new(name, url_stream, url_chat)
       @list_streams << stream
@@ -27,7 +26,6 @@ class StreamList
 
    def update(old_name, new_name, url_stream, url_chat)
       index = find(old_name)
-      raise StreamListException if index.nil?
 
       stream = @list_streams[index]
       stream.name = new_name
@@ -42,8 +40,6 @@ class StreamList
 
    def remove(name)
       index = find(stream.name)
-      raise StreamListException if index.nil?
-
       @list_streams.delete_at(index)
    end
 
@@ -51,8 +47,6 @@ class StreamList
 
    def get(name)
       index = find(stream.name)
-      raise StreamListException if index.nil?
-
       @list_streams[index]
    end
 
@@ -75,9 +69,12 @@ class StreamList
    end
 
    def find(name)
-      @list_streams.find_index do |item|
+      index = @list_streams.find_index do |item|
          item.name.casecmp?(name)
       end
+
+      raise StreamListException if index.nil?
+      index
    end
 
    def save(name)
