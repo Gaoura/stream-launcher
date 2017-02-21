@@ -43,12 +43,14 @@ class StreamList
       @list_streams.delete_at(index)
    end
 
-   alias delete_by_name remove_by_name
+   alias delete remove
 
    def get(name)
       index = find(stream.name)
       @list_streams[index]
    end
+
+   alias [] get
 
    def collect_names
       @list_streams.collect do |item|
@@ -76,6 +78,8 @@ class StreamList
       raise StreamListException if index.nil?
       index
    end
+
+   alias index_of find
 
    def save(name)
       @formatter.save(self, name)
