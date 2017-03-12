@@ -12,6 +12,8 @@ créer).
 
 Je crois qu'une gemme nommée ocra permettra de créer l'exécutable.
 
+Essayer aussi permettre le choix de langue : Français ou Anglais
+
 # Problèmes
 
 Twitch a changé son API donc livestreamer ne marche plus sans token, je vais utiliser
