@@ -4,9 +4,8 @@ class StreamList
 
    attr_accessor :formatter
 
-   def initialize(formatter)
+   def initialize
       @list_streams = []
-      @formatter = formatter
    end
 
    # construct and add in an ordered way a stream to the list
@@ -80,12 +79,4 @@ class StreamList
    end
 
    alias index_of find
-
-   def save(name)
-      @formatter.save(self, name)
-   end
-
-   def load(name)
-      @formatter.load(name)
-   end
 end

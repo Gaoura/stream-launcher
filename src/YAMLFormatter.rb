@@ -2,13 +2,17 @@ require 'yaml'
 
 class YAMLFormatter
 
-   def save(stream_list, name)
+   class << self
+      private :new
+   end
+
+   def self.save(object, name)
       File.open(name, "w") do |f|
-         f.write(stream_list.to_yaml)
+         f.write(object.to_yaml)
       end
    end
 
-   def load(name)
+   def self.load(name)
       if File.exists?(name)
          YAML.load(File.open(name))
       end
