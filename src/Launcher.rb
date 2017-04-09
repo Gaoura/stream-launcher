@@ -30,7 +30,6 @@ class Launcher
 =end
 
    def self.stream_availables_qualities(stream_url, path_to_livestreamer = nil)
-      cmd_output
       if path_to_livestreamer.nil?
          cmd_output = `livestreamer #{stream_url}`
       else
@@ -49,7 +48,6 @@ class Launcher
    end
 
    def self.launch_stream(stream_url, quality, path_to_livestreamer = nil)
-      pid
       if path_to_livestreamer.nil?
          pid = spawn("livestreamer #{stream_url} #{quality}")
       else
@@ -64,7 +62,6 @@ class Launcher
    end
 
    def self.record(stream_url, quality, path_to_livestreamer = nil, path_to_recording_directory = ".")
-      pid
       if path_to_livestreamer.nil?
          pid = spawn("livestreamer #{stream_url} #{quality} -o #{path_to_recording_directory}")
       else
