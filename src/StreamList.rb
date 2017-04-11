@@ -2,8 +2,6 @@ class StreamList
 
    # NOTE: Parameter checking will have to get done in the classes using this one
 
-   attr_accessor :formatter
-
    def initialize
       @list_streams = []
    end
