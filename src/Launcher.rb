@@ -3,11 +3,12 @@ require "open-uri"
 require 'json'
 =end
 
-class Launcher
+module Launcher
+   extend Environment
 
-   class << self
-      private :new
+   default  # initializing Environment singleton variables
 
+   class << self  # all methods in this module are singleton methods
 =begin REVIEW: Doesn't work, open give HTTPError 400 Bad Request
 
 # Solution is there : https://github.com/justintv/Twitch-API/blob/master/authentication.md#implicit-grant
@@ -28,12 +29,8 @@ class Launcher
       end
 =end
 
-      def stream_availables_qualities(stream_url, path_to_livestreamer = nil)
-         if path_to_livestreamer.nil?
-            cmd_output = `livestreamer #{stream_url}`
-         else
-            cmd_output = `#{path_to_livestreamer} #{stream_url}`
-         end
+      def stream_availables_qualities(stream_url)
+         cmd_output = `#{self.livestreamer} #{stream_url}`
 
          # TODO: manage error case where livestreamer won't even work
 
@@ -46,29 +43,20 @@ class Launcher
          cmd_output.slice!(r1).split(r2)
       end
 
-      def launch_stream(stream_url, quality, path_to_livestreamer = nil)
-         if path_to_livestreamer.nil?
-            pid = spawn("livestreamer #{stream_url} #{quality}")
-         else
-            pid = spawn("#{path_to_livestreamer} #{stream_url} #{quality}")
-         end
+      def launch_stream(stream_url, quality)
+         pid = spawn("#{self.livestreamer} #{stream_url} #{quality}")
          Process.detach pid
       end
 
-      def launch_chat(chat_url, path_to_browser)
-         pid = spawn("#{path_to_browser} #{chat_url}")
+      def launch_chat(chat_url)
+         pid = spawn("#{self.browser} #{chat_url}")
          Process.detach pid
       end
 
-      def record(stream_url, quality, path_to_livestreamer = nil, path_to_recording_directory = ".")
-         if path_to_livestreamer.nil?
-            pid = spawn("livestreamer #{stream_url} #{quality} -o #{path_to_recording_directory}")
-         else
-            pid = spawn("#{path_to_livestreamer} #{stream_url} #{quality} -o #{path_to_recording_directory}")
-         end
+      def record(stream_url, quality, path_to_recording_directory = ".")
+         pid = spawn("#{self.livestreamer} #{stream_url} #{quality} -o #{path_to_recording_directory}")
          Process.detach pid
       end
-   end
 
 =begin USELESS FOR THE MOMENT, see is_stream_online?
       private
@@ -78,4 +66,5 @@ class Launcher
          stream_url.match(/.*\twitch.tv\/\1(\/)|(.*)/)[1]
       end
 =end
+   end
 end
