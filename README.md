@@ -16,8 +16,16 @@ Essayer aussi permettre le choix de langue : Français ou Anglais
 
 # Classes manquantes
 
-Une classe controller pour une StreamList (+ Stream) (commune à toutes les vues ? ou unique à chaque vue ?) et une autre pour la gestion de l'OS et des chemins vers livestreamer et navigateur.
-Une classe par vue
+- [ ] Une classe controller pour une StreamList (+ Stream) (commune à toutes les vues ? ou unique à chaque vue ?)
+- [x] Une autre pour la gestion de l'OS et des chemins vers livestreamer et navigateur.
+   Finalement toutes ces fonctionnalités s'intègrent directement au Launcher et
+   il reste à écrire et vérifier tous les cas d'erreur possibles dans le Launcher pour que
+   le code Model soit fini, il semblerait
+- [ ] Une classe par vue
+
+# UML
+
+J'ajoute l'UML fait via LucidChart (vu que je ne trouve pas d'outil récent pour l'autogénérer), après avoir codé une bonne partie du programme, juste pour me repérer plus rapidement quand je reprend le code si je fais quelques jours de pause.
 
 # Problèmes
 
