@@ -1,3 +1,5 @@
+require_relative "Error.rb"
+
 class StreamList
 
    # NOTE: Parameter checking will have to get done in the classes using this one
@@ -72,7 +74,7 @@ class StreamList
          item.name.casecmp?(name)
       end
 
-      raise StreamListException if index.nil?
+      raise ::Error::StreamNotFoundError if index.nil?
       index
    end
 
