@@ -1,0 +1,62 @@
+# http://www.yamllint.com/
+---
+en:
+   language:
+      name: English
+   welcome_in: Welcome in
+   profile:
+      new: New profile
+      name: Name of the profile
+      rename: "Rename the current profile (current name : %{name})"
+      changed: Profile changed
+      unchanged: Profile left unchanged
+      name_changed: Profile name modified
+      load: Load a profile
+      delete: Delete a profile
+      deleted: Profile deleted
+      error:
+         name:
+            empty: Profile name must contain at least one character
+            length: Profile name cannot exceed %{length} characters
+            char: Profile name cannot contain any of the following characters %{list_char}
+         already_used: This profile name is already used
+         no_profile: No profile found
+   livestreamer:
+      indicate: "Indicate your livestreamer's location"
+      error:
+         not_in_path: livestreamer not found in your PATH, indicate where is your livestreamer
+         nonexistent: Given livestreamer does not exist, indicate another path to it
+         not_executable: Given livestreamer is not executable, indicate another path to it
+      changed:
+         given: livestreamer location changed
+         path: livestreamer location changed for your PATH's one
+   browser:
+      indicate: "Indicate your browser's location"
+      error:
+         nonexistent: Given browser does not exist, indicate another path to it
+         not_executable: Given browser is not executable, indicate another path to it
+      changed: Browser location changed
+   answer:
+      choice: What is your choice ?
+      sure: Are you sure ?
+      yes: Yes
+      no: No
+      cancel: Cancel
+   main_menu:
+      parameters: Parameters
+      stream_list: Your stream list
+      open:
+         stream_video: Open a stream/video link
+         chat: Open a chat link
+   exit: Exit
+   back: Back
+   parameters:
+      default_quality: "Change the default quality (currently : %{quality})"
+      profile: Change profile
+      livestreamer: Change your livestreamer's location
+      browser: Change your browser's location
+      current_language: Change the current language
+   default_quality:
+      new: New default quality
+      changed: Default quality changed
+      unchanged: Default quality left unchanged
