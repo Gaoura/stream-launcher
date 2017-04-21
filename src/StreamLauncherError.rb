@@ -1,0 +1,1 @@
+class StreamLauncherError < StandardError; end
