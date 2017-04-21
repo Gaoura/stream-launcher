@@ -1,82 +1,79 @@
-require_relative "Error.rb"
-
 class StreamList
 
    # NOTE: Parameter checking will have to get done in the classes using this one
 
    def initialize
-      @list_streams = []
+      @streams = []
    end
 
    # construct and add in an ordered way a stream to the list
    # unless the stream (based on his name attribute) is already included
    # or raise an exception
-   def add(name, url_stream, url_chat)
-      find(name)
-
-      stream = Stream.new(name, url_stream, url_chat)
-      @list_streams << stream
-      @list_streams.sort! do |a,b|
-         a.casecmp(b)
-      end
+   def add(stream)
+      puts find(stream.name)
+      raise StreamListError::StreamAlreadyExistsError unless find(stream.name).nil?
+      @streams << stream
+      @streams.sort!
    end
 
-   alias << add
+   alias_method :<<, :add
 
    def update(old_name, new_name, url_stream, url_chat)
       index = find(old_name)
+      raise StreamListError::StreamNotFoundError if index.nil?
 
-      stream = @list_streams[index]
+      unless old_name.casecmp(new_name)
+         raise StreamListError::StreamAlreadyExistsError unless find(new_name).nil?
+      end
+
+      stream = @streams[index]
       stream.name = new_name
-      stream.url_name = url_stream
+      stream.url_stream = url_stream
       stream.url_chat = url_chat
-      if old_name.casecmp?(new_name)
-         @list_streams.sort! do |a,b|
-            a.casecmp(b)
-         end
+      unless old_name.casecmp(new_name)
+         @streams.sort!
       end
    end
 
    def remove(name)
-      index = find(stream.name)
-      @list_streams.delete_at(index)
+      index = find(name)
+      raise StreamListError::StreamNotFoundError if index.nil?
+      @streams.delete_at(index)
    end
 
-   alias delete remove
+   alias_method :delete, :remove
 
    def get(name)
-      index = find(stream.name)
-      @list_streams[index]
+      index = find(name)
+      raise StreamListError::StreamNotFoundError if index.nil?
+      @streams[index]
    end
 
-   alias [] get
+   alias_method :[], :get
 
    def collect_names
-      @list_streams.collect do |item|
+      @streams.collect do |item|
          item.name
       end
    end
 
    def size
-      @list_streams.size
+      @streams.size
    end
 
    def empty?
-      @list_streams.empty?
+      @streams.empty?
    end
 
    def any?
-      @list_streams.any?
+      @streams.any?
    end
 
    def find(name)
-      index = @list_streams.find_index do |item|
-         item.name.casecmp?(name)
+      @streams.find_index do |v|
+         name == v.name
       end
-
-      raise ::Error::StreamNotFoundError if index.nil?
-      index
    end
 
-   alias index_of find
+   alias_method :index_of, :find
 end
