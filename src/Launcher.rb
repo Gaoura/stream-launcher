@@ -4,9 +4,6 @@ require 'json'
 =end
 
 module Launcher
-   extend Environment
-
-   default  # initializing Environment singleton variables
 
    class << self  # all methods in this module are singleton methods
 =begin REVIEW: Doesn't work, open give HTTPError 400 Bad Request
@@ -30,7 +27,7 @@ module Launcher
 =end
 
       def stream_availables_qualities(stream_url)
-         cmd_output = `#{self.livestreamer} #{stream_url}`
+         cmd_output = `#{Environment.livestreamer} #{stream_url}`
 
          # TODO: manage error case where livestreamer won't even work
 
@@ -44,17 +41,17 @@ module Launcher
       end
 
       def launch_stream(stream_url, quality)
-         pid = spawn("#{self.livestreamer} #{stream_url} #{quality}")
+         pid = spawn("#{Environment.livestreamer} #{stream_url} #{quality}")
          Process.detach pid
       end
 
       def launch_chat(chat_url)
-         pid = spawn("#{self.browser} #{chat_url}")
+         pid = spawn("#{Environment.browser} #{chat_url}")
          Process.detach pid
       end
 
       def record(stream_url, quality, path_to_recording_directory = ".")
-         pid = spawn("#{self.livestreamer} #{stream_url} #{quality} -o #{path_to_recording_directory}")
+         pid = spawn("#{Environment.livestreamer} #{stream_url} #{quality} -o #{path_to_recording_directory}")
          Process.detach pid
       end
 
