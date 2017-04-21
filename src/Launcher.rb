@@ -5,6 +5,8 @@ require 'json'
 
 module Launcher
 
+# TODO: Environment is now a class and so can' be used the way it is in this module
+
    class << self  # all methods in this module are singleton methods
 =begin REVIEW: Doesn't work, open give HTTPError 400 Bad Request
 
